@@ -1,4 +1,4 @@
-name: Terraform Deployment Pipeline
+name: Terraform Pipeline
 
 on:
   push:
@@ -7,12 +7,14 @@ on:
 
 jobs:
   terraform:
-    runs-on: self-hosted
+    runs-on: [self-hosted, Linux, X64]
 
     steps:
-
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
 
       - name: Terraform Init
         run: terraform init
@@ -25,4 +27,3 @@ jobs:
 
       - name: Terraform Apply
         run: terraform apply -auto-approve
-
